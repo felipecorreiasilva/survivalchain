@@ -30,10 +30,11 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
 
     const [account, setAccount] = useState<any|null>(getInitialAuth);
 
-    const requestAccount=async()=> {
+    const requestAccount = async() => {
         console.log('Requesting account: ')
 
-        if (window.ethereum){
+        if (!window.ethereum) return alert('Meta mask not detected')
+
             console.log('detected')
             try {
                 const accounts = await window.ethereum.request({
@@ -45,17 +46,11 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
             }catch(err){
                 console.log('error: ', err)
             }
-        }else {
-            alert('Meta mask not detected')
-        }
+        
     }
 
-    useEffect(() => {
-        localStorage.setItem('account', JSON.stringify(account))
-    }, [account]);
-
     const connectWallet= async() => {
-        if (typeof window.ethereum !== 'undefined') {
+        if (!window.ethereum) return alert('Meta mask not detected')
             await requestAccount();
 
             // const provider = new ethers.providers.AlchemyProvider('optimism', API_KEY_TEST_NETWORK)
@@ -64,12 +59,13 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
             // const erc20 = new ethers.Contract()
             
 
-        }
+        
         
     }
 
     const disconnectWallet = async() => {
-        if (window.ethereum){
+        if (!window.ethereum) return alert('Meta mask not detected')
+            
             console.log('detected')
             try {
                 await window.ethereum.request({
@@ -84,12 +80,27 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
             }catch(err){
                 console.log('error: ', err)
             }
-        }else {
-            alert('Meta mask not detected')
-        }
         
         
     }
+
+    useEffect(() => {
+        localStorage.setItem('account', JSON.stringify(account))
+    }, [account]);
+
+    useEffect(() => {
+        const verifyAccount = async () => {
+            if (!window.ethereum) return alert('Meta mask not detected')
+                const verify = await window.ethereum.request({
+                    "method": "wallet_getPermissions",
+                    "params": []
+                });
+                if(verify.length == 0){
+                    setAccount(null)
+                }
+        }
+        verifyAccount()
+    }, []);
 
     
 
