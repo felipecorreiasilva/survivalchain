@@ -19,6 +19,8 @@ const config: Config = {
   			foreground: 'hsl(var(--foreground))',
   			primary: {
   				'950': '#04030f',
+  				'900': '#060514',
+  				'800': '#08071a',
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
