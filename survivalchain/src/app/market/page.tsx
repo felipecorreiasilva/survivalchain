@@ -111,7 +111,9 @@ const page = () => {
                         name={i.toString()}
                         value={formData[i]?.amount}
                         onChange={handleOnChange}
-                        type="number" className='bg-transparent border w-14 rounded ml-2 pl-[10px]' />
+                        type="number" 
+                        min='0'
+                        className='bg-transparent border w-14 rounded ml-2 pl-[10px]' />
 
                       </div>
                       
