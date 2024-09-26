@@ -57,7 +57,6 @@ const page = () => {
 
   const [formData, setFormData] = useState([
     {amount: 1},
-    {amount: 1},
     
 
   ])
