@@ -5,9 +5,9 @@ const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
 
 
-module.exports = buildModule("SCTokenModule", (m) => {
+module.exports = buildModule("SCSaleModule", (m) => {
 
-  const SCToken = m.contract("SCToken");
+  const SCSale = m.contract("SCSale", [50000000] );
 
-  return { SCToken };
+  return { SCSale };
 });
